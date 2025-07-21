@@ -45,8 +45,38 @@ class Tree {
         }
 
         return root
+    }
 
+     getSuccessor(curr) {
+            curr = curr.right;
+            while (curr !== null && curr.left !== null) {
+                curr = curr.left;
+            }
+            return curr;
+        }
 
+    deleteItem(value, root=this.root) {
+        if(root === null){
+            return root
+        }
+
+        if(value < root.value){
+            root.left = this.deleteItem(value, root.left)
+        } else if(value > root.value) {
+            root.right = this.deleteItem(value, root.right)
+        } else {
+            if (root.left === null) 
+            return root.right;
+
+        if (root.right === null) 
+            return root.left;
+
+        let succ = this.getSuccessor(root);
+        root.value = succ.value;
+        root.right = this.deleteItem(succ.value, root.right);
+        }
+
+        return root
     }
 
     prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -73,4 +103,6 @@ tree.insert(8)
 tree.insert(9)
 tree.insert(11)
 
+tree.deleteItem(10)
+tree.deleteItem(4)
 tree.prettyPrint(tree.root);
