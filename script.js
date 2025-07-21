@@ -29,10 +29,22 @@ class Tree {
         return root
     }
 
+    prettyPrint = (node, prefix = '', isLeft = true) => {
+        if (node === null) {
+            return;
+        }
+        if (node.right !== null) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        if (node.left !== null) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
+    };
 
 
 }
 
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
-console.log(tree.root)
+tree.prettyPrint(tree.root)
