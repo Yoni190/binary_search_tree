@@ -142,6 +142,28 @@ class Tree {
         callback(node);
     }
 
+    height(value, node = this.root, finding = true) {
+        if (!node) return -1;
+
+        if (finding) {
+            // Search for the node with the given value
+            if (node.value === value) {
+                // Found the node, now calculate height of this subtree
+                return this.height(value, node, false);
+            }
+            const leftSearch = this.height(value, node.left, true);
+            if (leftSearch !== -1) return leftSearch;
+            return this.height(value, node.right, true);
+        } else {
+            // calculating height (finding == false)
+            const leftHeight = this.height(value, node.left, false);
+            const rightHeight = this.height(value, node.right, false);
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }
+
+
+
     prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -162,6 +184,6 @@ class Tree {
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
-tree.postOrderForEach(console.log)
+console.log(tree.height(9))
 
 tree.prettyPrint(tree.root);
