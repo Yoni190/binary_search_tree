@@ -90,6 +90,9 @@ class Tree {
     }
 
     levelOrderForEach(callback) {
+        if(typeof callback !== 'function'){
+            throw new Error('A callback is required')
+        }
 
         const queue = []
         if(this.root) queue.push(this.root)
@@ -104,6 +107,10 @@ class Tree {
     }
 
     inorderForEach(callback, node = this.root) {
+        if(typeof callback !== 'function'){
+            throw new Error('A callback is required')
+        }
+
         if (!node) return;
         
         this.inorderForEach(callback, node.left);  // left subtree
@@ -112,6 +119,10 @@ class Tree {
     }
 
     preOrderForEach(callback, node=this.root) {
+        if(typeof callback !== 'function'){
+            throw new Error('A callback is required')
+        }
+
         if(!node) return;
 
         callback(node);
@@ -120,6 +131,10 @@ class Tree {
     }
 
     postOrderForEach(callback, node=this.root) {
+        if(typeof callback !== 'function'){
+            throw new Error('A callback is required')
+        }
+        
         if(!node) return;
 
         this.postOrderForEach(callback, node.left)
