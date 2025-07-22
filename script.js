@@ -79,6 +79,16 @@ class Tree {
         return root
     }
 
+    find(value, root=this.root){
+        if (root.value === value) return root
+
+        if(root.value < value) {
+            return this.find(value, root.right)
+        } else if(root.value > value) {
+            return this.find(value, root.left)
+        }
+    }
+
     prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -98,11 +108,7 @@ class Tree {
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
-tree.insert(10)
-tree.insert(8)
-tree.insert(9)
-tree.insert(11)
 
-tree.deleteItem(10)
-tree.deleteItem(4)
 tree.prettyPrint(tree.root);
+
+console.log(tree.find(4))
