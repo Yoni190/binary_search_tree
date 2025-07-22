@@ -103,6 +103,15 @@ class Tree {
         }
     }
 
+    inorderForEach(callback, node = this.root) {
+        if (!node) return;
+        
+        this.inorderForEach(callback, node.left);  // left subtree
+        callback(node);                            // visit node
+        this.inorderForEach(callback, node.right); // right subtree
+    }
+
+
     prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -123,6 +132,6 @@ class Tree {
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
-tree.levelOrderForEach(console.log)
+tree.inorderForEach(console.log)
 
 tree.prettyPrint(tree.root);
