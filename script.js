@@ -197,6 +197,15 @@ class Tree {
 
 
 
+    rebalance() {
+        const values = [];
+
+        // Step 1: collect all values using inorder traversal
+        this.inorderForEach(node => values.push(node.value));
+
+        // Step 2: rebuild balanced tree
+        this.root = this.buildTree(values, 0, values.length - 1);
+    }
 
 
     prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -222,6 +231,12 @@ const tree = new Tree(array)
 tree.insert(8)
 tree.insert(9)
 tree.insert(10)
+console.log(tree.isBalanced())
+
+tree.prettyPrint(tree.root);
+
+tree.rebalance()
+
 console.log(tree.isBalanced())
 
 tree.prettyPrint(tree.root);
