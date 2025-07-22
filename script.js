@@ -177,6 +177,25 @@ class Tree {
         return this.depth(value, node.right, currentDepth + 1);
     }
 
+    isBalanced(node = this.root) {
+        const check = (node) => {
+            if (!node) return 0; // height of empty subtree is 0
+
+            const left = check(node.left);
+            if (left === -1) return -1; // left subtree unbalanced
+
+            const right = check(node.right);
+            if (right === -1) return -1; // right subtree unbalanced
+
+            if (Math.abs(left - right) > 1) return -1; // current node unbalanced
+
+            return Math.max(left, right) + 1; // return height if balanced
+        };
+
+        return check(node) !== -1;
+    }
+
+
 
 
 
@@ -200,6 +219,9 @@ class Tree {
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
-console.log(tree.depth(7))
+tree.insert(8)
+tree.insert(9)
+tree.insert(10)
+console.log(tree.isBalanced())
 
 tree.prettyPrint(tree.root);
