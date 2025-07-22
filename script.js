@@ -89,6 +89,20 @@ class Tree {
         }
     }
 
+    levelOrderForEach(callback) {
+
+        const queue = []
+        if(this.root) queue.push(this.root)
+        
+        while(queue.length > 0){
+            const current = queue.shift()
+            callback(current)
+
+            if(current.left) queue.push(current.left)
+            if(current.right) queue.push(current.right)
+        }
+    }
+
     prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -103,12 +117,12 @@ class Tree {
     };
 
 
+
 }
 
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
+tree.levelOrderForEach(console.log)
 
 tree.prettyPrint(tree.root);
-
-console.log(tree.find(4))
