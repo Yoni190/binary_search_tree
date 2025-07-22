@@ -162,6 +162,22 @@ class Tree {
         }
     }
 
+    depth(value, node = this.root, currentDepth = 0) {
+        if (!node) return -1; // Node not found
+
+        if (node.value === value) {
+            return currentDepth;
+        }
+
+        // Search left subtree
+        const left = this.depth(value, node.left, currentDepth + 1);
+        if (left !== -1) return left;
+
+        // Search right subtree
+        return this.depth(value, node.right, currentDepth + 1);
+    }
+
+
 
 
     prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -184,6 +200,6 @@ class Tree {
 const array = [1,2,3,4,5,6,7]
 const tree = new Tree(array)
 
-console.log(tree.height(9))
+console.log(tree.depth(7))
 
 tree.prettyPrint(tree.root);
